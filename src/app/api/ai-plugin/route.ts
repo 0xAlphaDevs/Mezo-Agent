@@ -123,16 +123,42 @@ export async function GET() {
                     type: "object",
                     properties: {
                       btcBalance: {
-                        type: "string",
-                        description: "The current BTC balance on Mezo Testnet",
+                        type: "object",
+                        properties: {
+                          balance: {
+                            type: "string",
+                            description: "The BTC balance in wei (18 decimals)"
+                          },
+                          decimals: {
+                            type: "number",
+                            description: "Number of decimals (18)"
+                          },
+                          symbol: {
+                            type: "string",
+                            description: "Token symbol (BTC)"
+                          }
+                        }
                       },
                       musdBalance: {
-                        type: "string",
-                        description: "The current MUSD balance on Mezo Testnet",
+                        type: "object",
+                        properties: {
+                          balance: {
+                            type: "string",
+                            description: "The MUSD balance in wei (18 decimals)"
+                          },
+                          decimals: {
+                            type: "number",
+                            description: "Number of decimals (18)"
+                          },
+                          symbol: {
+                            type: "string",
+                            description: "Token symbol (MUSD)"
+                          }
+                        }
                       },
-                      btcAddress: {
+                      address: {
                         type: "string",
-                        description: "The user's BTC address on Mezo Testnet",
+                        description: "The user's address on Mezo Testnet",
                       },
                     },
                   },
