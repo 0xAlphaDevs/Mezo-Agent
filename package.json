@@ -26,8 +26,11 @@
     "@radix-ui/react-tabs": "^1.1.9",
     "@radix-ui/react-tooltip": "^1.2.0",
     "@rainbow-me/rainbowkit": "^2.2.9",
+    "@reown/appkit": "^1.8.12",
+    "@reown/appkit-adapter-wagmi": "^1.8.12",
     "@tanstack/react-query": "^5.90.5",
     "@upstash/redis": "^1.34.8",
+    "@wagmi/core": "^2.22.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.487.0",
@@ -52,5 +55,10 @@
     "make-agent": "^0.2.12",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@wagmi/core": "2.22.1"
+    }
   }
 }
