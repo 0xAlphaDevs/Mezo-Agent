@@ -95,13 +95,13 @@ export default function Dashboard() {
                 href="/"
                 className="flex items-center gap-0 text-xl font-bold"
               >
-                <Image
+                {/* <Image
                   src="/icon.png"
                   alt="Logo"
                   width={30}
                   height={30}
                   className="rounded-full"
-                />
+                /> */}
                 <span className="ml-2">
                   Mezo <span className="text-rose-500">Agent</span>
                 </span>
@@ -141,14 +141,14 @@ export default function Dashboard() {
                     <div className="text-sm text-gray-600 mb-4">
                       Wallet Address
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-rose-900/20 text-black p-3 rounded-md flex-1 font-mono text-sm break-all">
+                    <div className="bg-rose-900/10 text-black p-3 rounded-md flex justify-between items-center gap-2">
+                      <div className="font-mono text-sm break-all flex-1">
                         {address}
                       </div>
                       <Button
                         size="icon"
-                        variant="outline"
-                        className="border-rose-900/50 hover:border-rose-500 hover:text-rose-500"
+                        variant="ghost"
+                        className="hover:text-rose-500 flex-shrink-0"
                         onClick={() => {
                           navigator.clipboard.writeText(address || '');
                           setCopied(true);
@@ -179,9 +179,7 @@ export default function Dashboard() {
                       <>
                         {/* MUSD Balance */}
                         <div className="flex items-center gap-4 p-4 bg-rose-900/10 rounded-md">
-                          <div className="bg-rose-900/20 p-3 rounded-md">
-                            <span className="text-lg font-bold text-rose-500">M</span>
-                          </div>
+                          <img src="/assets/mezo.svg" alt="Mezo" className="h-10 w-10" />
                           <div className="flex-1">
                             <div className="text-lg font-bold text-black">
                               {balances
@@ -197,9 +195,7 @@ export default function Dashboard() {
 
                         {/* BTC Balance */}
                         <div className="flex items-center gap-4 p-4 bg-rose-900/10 rounded-md">
-                          <div className="bg-rose-900/20 p-3 rounded-md">
-                            <Bitcoin className="h-6 w-6 text-rose-500" />
-                          </div>
+                          <img src="/assets/btc.svg" alt="Bitcoin" className="h-10 w-10" />
                           <div className="flex-1">
                             <div className="text-lg font-bold text-black">
                               {balances
@@ -234,11 +230,11 @@ export default function Dashboard() {
                 </CardFooter>
               </Card>
             ) : (
-              <Card className="border-rose-900/50 bg-white/60 backdrop-blur-sm col-span-1 lg:col-span-2 flex items-center justify-center p-8">
+              <Card className="border-rose-900/50 bg-white/60 backdrop-blur-sm col-span-1 lg:col-span-2 flex items-center justify-center p-8 pb-12">
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-2">Connect Your Wallet</h3>
+                  <h3 className="text-2xl font-semibold mb-2">Connect Your Wallet</h3>
                   <p className="text-gray-600 mb-4">Connect your wallet to view your assets</p>
-                  <ConnectButton />
+                  <div className="flex justify-center"><ConnectButton /></div>
                 </div>
               </Card>
             )}
@@ -258,7 +254,7 @@ export default function Dashboard() {
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-rose-500"></div>
-                  <span className="text-lg text-gray-600">Online</span>
+                  <span className="text-lg text-gray-600">Active</span>
                 </div>
 
                 <div className="text-sm text-gray-600">
@@ -274,11 +270,11 @@ export default function Dashboard() {
                   <p className="text-xs text-gray-500 mb-2">
                     Currently connected to the following networks
                   </p>
-                  <div className="flex flex-col gap-2">
-                    <Badge className="bg-rose-900/50 text-rose-400 w-fit">
+                  <div className="flex flex-row gap-2">
+                    <Badge className="bg-white text-rose-400 w-fit">
                       Bitcoin Mainnet
                     </Badge>
-                    <Badge className="bg-rose-900/50 text-rose-400 w-fit">
+                    <Badge className="bg-white text-rose-400 w-fit">
                       Mezo Testnet
                     </Badge>
                   </div>

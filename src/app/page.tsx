@@ -86,7 +86,7 @@ export default function Home() {
             <Button
               size="lg"
               variant="outline"
-              className="border-rose-600 text-rose-500 hover:bg-rose-950 hover:text-black text-xl font-bold"
+              className="border-rose-600 text-rose-500 hover:bg-rose-400/50 hover:text-white text-xl font-bold"
               asChild
             >
               <Link href="/dashboard">
