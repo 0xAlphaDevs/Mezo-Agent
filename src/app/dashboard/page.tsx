@@ -40,8 +40,7 @@ import {
 } from "@/components/ui/dialog";
 
 import ChatWidget from "@/components/ChatWidget";
-
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Dashboard() {
   const [copied, setCopied] = useState(false);
@@ -54,10 +53,10 @@ export default function Dashboard() {
   // NEAR Context
   const { wallet, signedAccountId } = useContext(NearContext);
 
-  const signIn = () => {
-    //@ts-ignore
-    wallet.signIn();
-  };
+  // const signIn = () => {
+  //   //@ts-ignore
+  //   wallet.signIn();
+  // };
 
   useEffect(() => {
     setIsLoading(true);
@@ -135,7 +134,6 @@ export default function Dashboard() {
                 href="/"
                 className="flex items-center gap-0 text-xl font-bold"
               >
-
                 <Image
                   src="/icon.png"
                   alt="Logo"
@@ -153,7 +151,8 @@ export default function Dashboard() {
               <div className="flex items-center gap-4">
                 <div className="flex flex-col items-center">
                   <p className="text-sm font-medium text-gray-400">
-                    {nearBalance.toFixed(3)} <span className="text-xs">NEAR</span>{" "}
+                    {nearBalance.toFixed(3)}{" "}
+                    <span className="text-xs">NEAR</span>{" "}
                   </p>
                   <p className="text-xs text-gray-400 truncate max-w-[120px] sm:max-w-[180px]">
                     {signedAccountId}
@@ -317,12 +316,14 @@ export default function Dashboard() {
               </Card>
             ) : (
               <Card className="border-emerald-900/50 bg-black/60 backdrop-blur-sm col-span-1 lg:col-span-2 justify-center items-center">
-                <Button
+                {/* <Button
                   className="bg-emerald-600 hover:bg-emerald-700 group relative overflow-hidden "
                   onClick={signIn}
                 >
-                  Connect NEAR Account
-                </Button>
+                  Connect Wallet
+                </Button> */}
+
+                <ConnectButton label="Connect Wallet" />
               </Card>
             )}
 
@@ -363,8 +364,8 @@ export default function Dashboard() {
                     Available Networks
                   </h4>
                   <p className="text-xs text-gray-500 mb-2">
-                    The agent is currently working with following networks to sign
-                    and send transactions
+                    The agent is currently working with following networks to
+                    sign and send transactions
                   </p>
                   <div className="flex gap-4 ">
                     <Badge className="bg-emerald-900/50 text-emerald-400">
@@ -463,7 +464,6 @@ export default function Dashboard() {
           title="Chat Widget"
         />
       </div>
-
     </div>
   );
 }

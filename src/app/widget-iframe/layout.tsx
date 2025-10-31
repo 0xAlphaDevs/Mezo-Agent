@@ -1,5 +1,9 @@
-import { NearProvider } from "@/context/NearProvider";
+import MezoProvider from "@/context/MezoProvider";
 
-export default function WidgetIframeLayout({ children }: { children: React.ReactNode }) {
-  return <NearProvider>{children}</NearProvider>;
+export default function WidgetIframeLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <MezoProvider>{children}</MezoProvider>;
 }

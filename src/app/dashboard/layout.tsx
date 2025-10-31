@@ -1,9 +1,9 @@
-import { NearProvider } from "@/context/NearProvider";
+import MezoProvider from "@/context/MezoProvider";
 
 export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (<NearProvider>{children}</NearProvider>);
+  return <MezoProvider>{children}</MezoProvider>;
 }

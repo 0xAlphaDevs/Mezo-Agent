@@ -14,7 +14,7 @@ export async function GET() {
         url:
           process.env.NODE_ENV === "development"
             ? "http://localhost:3000"
-            : "https://bitcoin-agent.xyz",
+            : "https://mezo-agent.vercel.app",
       },
     ],
     "x-mb": {

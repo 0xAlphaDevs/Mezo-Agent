@@ -3,10 +3,13 @@
 import { useContext } from "react";
 import { BitteWidgetChat } from "@bitte-ai/chat";
 import "@bitte-ai/chat/styles.css";
-import { NearContext } from "@/context/context";
+import { useAppKitAccount } from "@reown/appkit/react";
+import { useSendTransaction, useSwitchChain } from "wagmi";
 
 export default function WidgetIframePage() {
-  const { wallet, signedAccountId, signedInWallet } = useContext(NearContext);
+  const { address } = useAppKitAccount();
+  const { data: hash, sendTransaction } = useSendTransaction();
+  const { switchChain } = useSwitchChain();
 
   return (
     <div style={{ background: "transparent" }}>
@@ -18,19 +21,12 @@ export default function WidgetIframePage() {
         agentId="bitcoin-agent.xyz"
         apiUrl="/api/chat"
         wallet={{
-          near: {
-            wallet: signedInWallet,
-            account: signedInWallet,
-            accountId: signedAccountId,
-            nearWalletId: signedAccountId,
-          },
+          evm: { address, hash, sendTransaction, switchChain },
         }}
         widget={{
           widgetWelcomePrompts: {
-            questions: [
-              'Get my BTC balance?',
-            ],
-            actions: ['Get Balance']
+            questions: ["Get my BTC balance?"],
+            actions: ["Get Balance"],
           },
           customTriggerButton: (
             <button
@@ -38,7 +34,8 @@ export default function WidgetIframePage() {
                 width: 56,
                 height: 56,
                 border: "3px solid #34d399",
-                boxShadow: "0 0 24px 8px rgba(16,185,129,0.5), 0 0 0 0 rgba(16,185,129,0.3)",
+                boxShadow:
+                  "0 0 24px 8px rgba(16,185,129,0.5), 0 0 0 0 rgba(16,185,129,0.3)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -47,8 +44,12 @@ export default function WidgetIframePage() {
                 animation: "glow-pop 1.5s infinite alternate",
                 transition: "transform 0.2s cubic-bezier(.4,2,.6,1)",
               }}
-              onMouseEnter={e => e.currentTarget.style.transform = "scale(1.08)"}
-              onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.08)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
               aria-label="Open Chat Widget"
             >
               <img src="/icon.svg" alt="Chat Icon" />
