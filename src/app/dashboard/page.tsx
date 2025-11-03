@@ -57,22 +57,22 @@ export default function Dashboard() {
 
     setIsLoading(true);
     try {
-      const response = await fetch('/api/tools/get-balances', {
-        method: 'POST',
+      const response = await fetch("/api/tools/get-balances", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ address }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch balances');
+        throw new Error("Failed to fetch balances");
       }
 
       const data: BalanceResponse = await response.json();
       setBalances(data);
     } catch (error) {
-      console.error('Error fetching balances:', error);
+      console.error("Error fetching balances:", error);
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +82,6 @@ export default function Dashboard() {
   //   //@ts-ignore
   //   wallet.signIn();
   // };
-
 
   return (
     <div>
@@ -131,7 +130,7 @@ export default function Dashboard() {
                     Assets
                   </CardTitle>
                   <CardDescription>
-                    Your digital assets on Bitcoin mainnet and Mezo Testnet
+                    Your digital assets on Mezo Testnet
                   </CardDescription>
                 </CardHeader>
 
@@ -150,7 +149,7 @@ export default function Dashboard() {
                         variant="ghost"
                         className="hover:text-rose-500 flex-shrink-0"
                         onClick={() => {
-                          navigator.clipboard.writeText(address || '');
+                          navigator.clipboard.writeText(address || "");
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
                         }}
@@ -179,13 +178,20 @@ export default function Dashboard() {
                       <>
                         {/* MUSD Balance */}
                         <div className="flex items-center gap-4 p-4 bg-rose-900/10 rounded-md">
-                          <img src="/assets/mezo.svg" alt="Mezo" className="h-10 w-10" />
+                          <img
+                            src="/assets/mezo.svg"
+                            alt="Mezo"
+                            className="h-10 w-10"
+                          />
                           <div className="flex-1">
                             <div className="text-lg font-bold text-black">
                               {balances
-                                ? (parseFloat(balances.musdBalance.balance) / Math.pow(10, balances.musdBalance.decimals)).toFixed(4)
-                                : '0.0000'
-                              } MUSD
+                                ? (
+                                    parseFloat(balances.musdBalance.balance) /
+                                    Math.pow(10, balances.musdBalance.decimals)
+                                  ).toFixed(4)
+                                : "0.0000"}{" "}
+                              MUSD
                             </div>
                             <div className="text-sm text-gray-600">
                               Mezo USD Stablecoin
@@ -195,13 +201,20 @@ export default function Dashboard() {
 
                         {/* BTC Balance */}
                         <div className="flex items-center gap-4 p-4 bg-rose-900/10 rounded-md">
-                          <img src="/assets/btc.svg" alt="Bitcoin" className="h-10 w-10" />
+                          <img
+                            src="/assets/btc.svg"
+                            alt="Bitcoin"
+                            className="h-10 w-10"
+                          />
                           <div className="flex-1">
                             <div className="text-lg font-bold text-black">
                               {balances
-                                ? (parseFloat(balances.btcBalance.balance) / Math.pow(10, balances.btcBalance.decimals)).toFixed(8)
-                                : 'Not fectched'
-                              } BTC
+                                ? (
+                                    parseFloat(balances.btcBalance.balance) /
+                                    Math.pow(10, balances.btcBalance.decimals)
+                                  ).toFixed(8)
+                                : "Not fectched"}{" "}
+                              BTC
                             </div>
                             <div className="text-sm text-gray-600">
                               Bitcoin on Mezo Testnet
@@ -218,10 +231,7 @@ export default function Dashboard() {
                     variant="outline"
                     className="border-rose-900/50 hover:border-rose-500 hover:text-rose-500"
                     onClick={() =>
-                      window.open(
-                        `https://testnet.mezo.org/overview`,
-                        "_blank"
-                      )
+                      window.open(`https://testnet.mezo.org/overview`, "_blank")
                     }
                   >
                     <ExternalLink className="mr-2 h-4 w-4" />
@@ -232,9 +242,15 @@ export default function Dashboard() {
             ) : (
               <Card className="border-rose-900/50 bg-white/60 backdrop-blur-sm col-span-1 lg:col-span-2 flex items-center justify-center p-8 pb-12">
                 <div className="text-center">
-                  <h3 className="text-2xl font-semibold mb-2">Connect Your Wallet</h3>
-                  <p className="text-gray-600 mb-4">Connect your wallet to view your assets</p>
-                  <div className="flex justify-center"><ConnectButton /></div>
+                  <h3 className="text-2xl font-semibold mb-2">
+                    Connect Your Wallet
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Connect your wallet to view your assets
+                  </p>
+                  <div className="flex justify-center">
+                    <ConnectButton />
+                  </div>
                 </div>
               </Card>
             )}
@@ -259,7 +275,8 @@ export default function Dashboard() {
 
                 <div className="text-sm text-gray-600">
                   <p className="mb-2">
-                    Connected to multiple networks for seamless asset management and transactions.
+                    Connected to Mezo Testnet for seamless asset management and
+                    transactions.
                   </p>
                 </div>
 
@@ -271,9 +288,9 @@ export default function Dashboard() {
                     Currently connected to the following networks
                   </p>
                   <div className="flex flex-row gap-2">
-                    <Badge className="bg-white text-rose-400 w-fit">
+                    {/* <Badge className="bg-white text-rose-400 w-fit">
                       Bitcoin Mainnet
-                    </Badge>
+                    </Badge> */}
                     <Badge className="bg-white text-rose-400 w-fit">
                       Mezo Testnet
                     </Badge>
@@ -307,7 +324,9 @@ export default function Dashboard() {
 
               {/* Social Links */}
               <div className="flex flex-col">
-                <h3 className="text-lg font-bold mb-4">Connect With Us</h3>
+                <h3 className="text-lg font-bold mb-4">
+                  Connect With Team AlphaDevs
+                </h3>
                 <div className="flex gap-4">
                   <Link
                     href="https://x.com/0xAlphaDevs"

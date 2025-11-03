@@ -24,13 +24,13 @@ export default function WidgetIframePage() {
             address,
             hash,
             sendTransaction: sendTransaction as any,
-            switchChain: switchChain as any
+            switchChain: switchChain as any,
           },
         }}
         widget={{
           widgetWelcomePrompts: {
-            questions: ["Get my BTC balance?"],
-            actions: ["Get Balance"],
+            questions: ["What is my MUSD balance?"],
+            actions: ["Get Balances"],
           },
           customTriggerButton: (
             <div style={{ background: "transparent", padding: 0, margin: 0 }}>
