@@ -26,9 +26,9 @@ export async function GET() {
         instructions: `You are a Mezo Agent that helps users perform Bitcoin operations on the Mezo Testnet. Your capabilities include:
 
           1. Balance Queries: Use /api/tools/get-balances to check both BTC and MUSD balances on Mezo Testnet
-          2. BTC Transfer: Use /api/tools/transfer-btc to transfer BTC between addresses on Mezo Testnet
-          3. MUSD Transfer: Use /api/tools/transfer-musd to transfer MUSD between addresses on Mezo Testnet
-          4. MUSD Borrowing: Use /api/tools/borrow-musd to borrow MUSD against BTC collateral
+          2. BTC Transfer: Use /api/tools/transfer-btc to transfer BTC between addresses on Mezo Testnet.Make sure to pass recepient and amount to this tool. If not provided by user then ask explicitly. This returns transaction data then use 'generate-evm-tx' tool to get this txn signed by the user.
+          3. MUSD Transfer: Use /api/tools/transfer-musd to transfer MUSD between addresses on Mezo Testnet. Make sure to pass recepient and amount to this tool. If not provided by user then ask explicitly.This returns transaction data then use 'generate-evm-tx' tool to get this txn signed by the user.
+          4. MUSD Borrowing: Use /api/tools/borrow-musd to borrow MUSD against BTC collateral. This returns transaction data then use 'generate-evm-tx' tool to get this txn signed by the user.
 
           Always check balances using /api/tools/get-balances before executing transfers or borrowing operations.
           For borrowing operations, explain collateralization requirements and liquidation risks to users.
@@ -60,11 +60,11 @@ export async function GET() {
                         properties: {
                           balance: {
                             type: "string",
-                            description: "The BTC balance in wei (18 decimals)",
+                            description: "The BTC balance ",
                           },
                           decimals: {
                             type: "number",
-                            description: "Number of decimals (18)",
+                            description: "Number of decimals",
                           },
                           symbol: {
                             type: "string",
@@ -135,31 +135,30 @@ export async function GET() {
         },
       },
       "/api/tools/transfer-btc": {
-        post: {
+        get: {
           operationId: "transfer-btc",
           summary: "Transfer BTC on Mezo Testnet",
           description: "Transfer Bitcoin between addresses on Mezo Testnet.",
-          requestBody: {
-            required: true,
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    toAddress: {
-                      type: "string",
-                      description: "Recipient BTC address on Mezo Testnet",
-                    },
-                    amount: {
-                      type: "string",
-                      description: "Amount of BTC to transfer",
-                    },
-                  },
-                  required: ["toAddress", "amount"],
-                },
+          parameters: [
+            {
+              name: "recepient",
+              in: "query",
+              required: true,
+              schema: {
+                type: "string",
               },
+              description: "The recipient address for the BTC transfer",
             },
-          },
+            {
+              name: "amount",
+              in: "query",
+              required: true,
+              schema: {
+                type: "string",
+              },
+              description: "The amount of BTC to transfer ",
+            },
+          ],
           responses: {
             "200": {
               description: "Successful response",
@@ -168,21 +167,27 @@ export async function GET() {
                   schema: {
                     type: "object",
                     properties: {
-                      txHash: {
+                      txnData: {
                         type: "string",
-                        description: "Transaction hash of the BTC transfer",
+                        description: "Empty 0x data for BTC transfer",
                       },
-                      fromAddress: {
-                        type: "string",
-                        description: "Sender address",
+                      chainId: {
+                        type: "number",
+                        description: "The chain ID for Mezo Testnet",
                       },
-                      toAddress: {
+                      to: {
                         type: "string",
-                        description: "Recipient address",
+                        description:
+                          "The MUSD contract address on Mezo Testnet",
                       },
-                      amount: {
+                      from: {
                         type: "string",
-                        description: "Amount transferred",
+                        description: "The sender's address on Mezo Testnet",
+                      },
+                      value: {
+                        type: "string",
+                        description:
+                          "The value to send with the transaction. This will be used for BTC transfers",
                       },
                     },
                   },
@@ -225,32 +230,31 @@ export async function GET() {
         },
       },
       "/api/tools/transfer-musd": {
-        post: {
+        get: {
           operationId: "transfer-musd",
           summary: "Transfer MUSD on Mezo Testnet",
           description:
             "Transfer MUSD (Mezo USD stablecoin) between addresses on Mezo Testnet.",
-          requestBody: {
-            required: true,
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    toAddress: {
-                      type: "string",
-                      description: "Recipient address on Mezo Testnet",
-                    },
-                    amount: {
-                      type: "string",
-                      description: "Amount of MUSD to transfer",
-                    },
-                  },
-                  required: ["toAddress", "amount"],
-                },
+          parameters: [
+            {
+              name: "recepient",
+              in: "query",
+              required: true,
+              schema: {
+                type: "string",
               },
+              description: "The recipient address for the MUSD transfer",
             },
-          },
+            {
+              name: "amount",
+              in: "query",
+              required: true,
+              schema: {
+                type: "string",
+              },
+              description: "The amount of MUSD to transfer",
+            },
+          ],
           responses: {
             "200": {
               description: "Successful response",
@@ -259,21 +263,28 @@ export async function GET() {
                   schema: {
                     type: "object",
                     properties: {
-                      txHash: {
+                      txnData: {
                         type: "string",
-                        description: "Transaction hash of the MUSD transfer",
+                        description:
+                          "Encoded transaction data for the MUSD transfer (to be signed by wallet)",
                       },
-                      fromAddress: {
-                        type: "string",
-                        description: "Sender address",
+                      chainId: {
+                        type: "number",
+                        description: "The chain ID for Mezo Testnet",
                       },
-                      toAddress: {
+                      to: {
                         type: "string",
-                        description: "Recipient address",
+                        description:
+                          "The MUSD contract address on Mezo Testnet",
                       },
-                      amount: {
+                      from: {
                         type: "string",
-                        description: "Amount transferred",
+                        description: "The sender's address on Mezo Testnet",
+                      },
+                      value: {
+                        type: "string",
+                        description:
+                          "The value to send with the transaction (usually 0 for token transfers)",
                       },
                     },
                   },
@@ -316,32 +327,31 @@ export async function GET() {
         },
       },
       "/api/tools/borrow-musd": {
-        post: {
+        get: {
           operationId: "borrow-musd",
           summary: "Borrow MUSD against BTC collateral",
           description:
             "Borrow MUSD (Mezo USD stablecoin) using BTC as collateral on Mezo Testnet. Requires sufficient BTC collateral.",
-          requestBody: {
-            required: true,
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    amount: {
-                      type: "string",
-                      description: "Amount of MUSD to borrow",
-                    },
-                    collateralAmount: {
-                      type: "string",
-                      description: "Amount of BTC to use as collateral",
-                    },
-                  },
-                  required: ["amount", "collateralAmount"],
-                },
+          parameters: [
+            {
+              name: "borrowAmount",
+              in: "query",
+              required: true,
+              schema: {
+                type: "string",
               },
+              description: "The amount of MUSD to borrow",
             },
-          },
+            {
+              name: "collateralAmount",
+              in: "query",
+              required: true,
+              schema: {
+                type: "string",
+              },
+              description: "The amount of BTC to lock as collateral",
+            },
+          ],
           responses: {
             "200": {
               description: "Successful response",

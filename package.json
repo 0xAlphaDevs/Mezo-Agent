@@ -24,6 +24,7 @@
     "@wagmi/core": "^2.22.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "ethers": "^6.15.0",
     "lucide-react": "^0.487.0",
     "next": "15.2.4",
     "qrcode.react": "^4.2.0",
