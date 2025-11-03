@@ -58,11 +58,11 @@ export default function Dashboard() {
     setIsLoading(true);
     try {
       const response = await fetch("/api/tools/get-balances", {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "mb-metadata": JSON.stringify({ evmAddress: address }),
         },
-        body: JSON.stringify({ address }),
       });
 
       if (!response.ok) {
@@ -213,7 +213,7 @@ export default function Dashboard() {
                                     parseFloat(balances.btcBalance.balance) /
                                     Math.pow(10, balances.btcBalance.decimals)
                                   ).toFixed(8)
-                                : "Not fectched"}{" "}
+                                : "Not fetched"}{" "}
                               BTC
                             </div>
                             <div className="text-sm text-gray-600">
