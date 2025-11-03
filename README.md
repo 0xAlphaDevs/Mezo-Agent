@@ -18,10 +18,10 @@ AI agent to bring onchain bitcoin finance to masses | Built for Mezo Network
 
 ## Links
 
-- [Deployed URL]()
+- [Deployed URL](https://mezo-agent.vercel.app)
 - [GitHub Repository](https://github.com/0xAlphaDevs/Mezo-Agent)
 - [Presentation](https://www.canva.com/design/DAG3iH4FWuI/AQ7RbPlJA3yykQKtU_YPiQ/view)
-- [Agent Link]()
+- [Bitte Agent Link](https://bitte.ai/agents/mezo-agent.vercel.app)
 
 ## Sponsors Tech Stack
 

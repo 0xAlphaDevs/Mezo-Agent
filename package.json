@@ -11,9 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@bitte-ai/agent-sdk": "latest",
     "@bitte-ai/chat": "^0.19.7",
-    "@bitte-ai/react": "latest",
     "@mezo-org/passport": "0.12.0-dev.1",
     "@radix-ui/react-dialog": "^1.1.13",
     "@radix-ui/react-slot": "^1.1.2",
