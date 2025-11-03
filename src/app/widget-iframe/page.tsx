@@ -17,7 +17,7 @@ export default function WidgetIframePage() {
           agentImage: "assets/mezo.svg",
           agentName: "Mezo Assistant",
         }}
-        agentId="bitcoin-agent.xyz"
+        agentId="mezo-agent.vercel.app"
         apiUrl="/api/chat"
         wallet={{
           evm: {
