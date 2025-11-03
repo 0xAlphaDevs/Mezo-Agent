@@ -1,12 +1,12 @@
 ## Mezo Agent
 
-An AI agent that uses chain signatures to interact with Bitcoin and Mezo Testnet.
+AI agent to bring onchain bitcoin finance to masses | Built for Mezo Network
 
 ### Features
 
-- **_Chain Signatures_** : Create and sign Bitcoin transactions using chain signatures technology.
-- **_Bitcoin Integration_** : Generate BTC transactions and send them directly to Bitcoin through the agent.
-- **_Bitte AI Runtime_** : Advanced AI agent running on Mezo testnet powered by Bitte.ai runtime for blockchain transactions.
+- **_Chatbot Widget_** : An embeddable AI assistant that lets users chat, query, and execute Bitcoin finance actions.
+- **_Onchain Actions_** : Use natural language to create and send transactions on Mezo Testnet. Ex: Send 5 MUSD to 0x_Address
+- **_Agent Dashboard_** : A personalized control center that visualizes your assets on Mezo Testnet.
 
 ## Table of Contents
 
@@ -26,9 +26,8 @@ An AI agent that uses chain signatures to interact with Bitcoin and Mezo Testnet
 ## Sponsors Tech Stack
 
 - Mezo Testnet
-- Bitcoin
-- Bitte.ai
-- Chain Signatures
+- MUSD Stablecoin
+- Bitcoin Finance
 
 ## App Demo Screenshots
 
@@ -43,10 +42,9 @@ An AI agent that uses chain signatures to interact with Bitcoin and Mezo Testnet
 
 ## Future Vision
 
-- We plan to expand Mezo Agent to support Nitcoin L1 and additional AI-powered features.
-- Integration with more sophisticated chain signature protocols for enhanced security and functionality.
-- Development of a comprehensive suite of Bitcoin DeFi tools powered by AI agents.
-- Building a marketplace for AI agents that can interact with Bitcoin and related networks.
+- Develop a comprehensive suite of AI-powered Bitcoin DeFi tools.
+- Establish a partnership between Bitte and the Mezo ecosystem through an MoU for pilot development.
+- Deploy the agent to mainnet and integrate it into the Mezo dashboard.
 
 ## Team
 
