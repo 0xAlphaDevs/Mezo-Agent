@@ -24,91 +24,23 @@ export async function GET() {
         description: `An AI agent that enables Bitcoin operations on the Mezo Testnet. Allows users to query balances, deposit BTC, transfer BTC and MUSD, and borrow MUSD through a simple conversational interface. Accelerates Bitcoin usability by enabling automated, on-chain financial operations through agentic interfaces on Mezo.`,
         instructions: `You are a Mezo Agent that helps users perform Bitcoin operations on the Mezo Testnet. Your capabilities include:
 
-          1. User Information: Use /api/tools/get-user to get user's Mezo account ID and BTC address
-          2. Balance Queries: Use /api/tools/get-balances to check both BTC and MUSD balances on Mezo Testnet
-          3. BTC Deposit: Use /api/tools/deposit-btc to deposit BTC from external wallets to Mezo Testnet
-          4. BTC Transfer: Use /api/tools/transfer-btc to transfer BTC between addresses on Mezo Testnet
-          5. MUSD Transfer: Use /api/tools/transfer-musd to transfer MUSD between addresses on Mezo Testnet
-          6. MUSD Borrowing: Use /api/tools/borrow-musd to borrow MUSD against BTC collateral
+          1. Balance Queries: Use /api/tools/get-balances to check both BTC and MUSD balances on Mezo Testnet
+          2. BTC Transfer: Use /api/tools/transfer-btc to transfer BTC between addresses on Mezo Testnet
+          3. MUSD Transfer: Use /api/tools/transfer-musd to transfer MUSD between addresses on Mezo Testnet
+          4. MUSD Borrowing: Use /api/tools/borrow-musd to borrow MUSD against BTC collateral
 
           Always check balances using /api/tools/get-balances before executing transfers or borrowing operations.
           For borrowing operations, explain collateralization requirements and liquidation risks to users.
           Always provide clear transaction details, confirm operations with users, and request any missing parameters before proceeding.
           Focus on Mezo Testnet operations only. Ensure all operations are performed safely and with proper user confirmation.
           If any parameter is not provided, ask for it explicitly before making API calls.`,
-        tools: [
-          { type: "generate-transaction" },
-          { type: "sign-message" },
-          { type: "intents" },
-        ],
+        tools: [{ type: "generate-evm-tx" }, { type: "sign-message" }],
         image:
-          "https://pbs.twimg.com/profile_images/1912478540060041216/21DZcXns_400x400.jpg",
+          "https://pbs.twimg.com/profile_images/1777650090162769920/KnBgdkXh_400x400.jpg",
         categories: ["Bitcoin", "DeFi", "Mezo", "Testnet"],
       },
     },
     paths: {
-      "/api/tools/get-user": {
-        get: {
-          summary: "Get user information",
-          description:
-            "Get user account information including Mezo wallet address and account details",
-          operationId: "get-user",
-          responses: {
-            "200": {
-              description: "Successful response",
-              content: {
-                "application/json": {
-                  schema: {
-                    type: "object",
-                    properties: {
-                      mezoAccountId: {
-                        type: "string",
-                        description: "The user's Mezo account ID",
-                      },
-                      btcAddress: {
-                        type: "string",
-                        description: "The user's BTC address on Mezo Testnet",
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            "400": {
-              description: "Bad request",
-              content: {
-                "application/json": {
-                  schema: {
-                    type: "object",
-                    properties: {
-                      error: {
-                        type: "string",
-                        description: "Error message",
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            "500": {
-              description: "Error response",
-              content: {
-                "application/json": {
-                  schema: {
-                    type: "object",
-                    properties: {
-                      error: {
-                        type: "string",
-                        description: "Error message",
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
       "/api/tools/get-balances": {
         get: {
           operationId: "get-balances",
@@ -127,125 +59,39 @@ export async function GET() {
                         properties: {
                           balance: {
                             type: "string",
-                            description: "The BTC balance in wei (18 decimals)"
+                            description: "The BTC balance in wei (18 decimals)",
                           },
                           decimals: {
                             type: "number",
-                            description: "Number of decimals (18)"
+                            description: "Number of decimals (18)",
                           },
                           symbol: {
                             type: "string",
-                            description: "Token symbol (BTC)"
-                          }
-                        }
+                            description: "Token symbol (BTC)",
+                          },
+                        },
                       },
                       musdBalance: {
                         type: "object",
                         properties: {
                           balance: {
                             type: "string",
-                            description: "The MUSD balance in wei (18 decimals)"
+                            description:
+                              "The MUSD balance in wei (18 decimals)",
                           },
                           decimals: {
                             type: "number",
-                            description: "Number of decimals (18)"
+                            description: "Number of decimals (18)",
                           },
                           symbol: {
                             type: "string",
-                            description: "Token symbol (MUSD)"
-                          }
-                        }
+                            description: "Token symbol (MUSD)",
+                          },
+                        },
                       },
                       address: {
                         type: "string",
                         description: "The user's address on Mezo Testnet",
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            "400": {
-              description: "Bad request",
-              content: {
-                "application/json": {
-                  schema: {
-                    type: "object",
-                    properties: {
-                      error: {
-                        type: "string",
-                        description: "Error message",
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            "500": {
-              description: "Error response",
-              content: {
-                "application/json": {
-                  schema: {
-                    type: "object",
-                    properties: {
-                      error: {
-                        type: "string",
-                        description: "Error message",
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-      "/api/tools/deposit-btc": {
-        post: {
-          operationId: "deposit-btc",
-          summary: "Deposit BTC to Mezo Testnet",
-          description:
-            "Deposit Bitcoin to the user's Mezo Testnet account. Converts external BTC to Mezo BTC.",
-          requestBody: {
-            required: true,
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    amount: {
-                      type: "string",
-                      description: "Amount of BTC to deposit",
-                    },
-                    fromAddress: {
-                      type: "string",
-                      description: "External BTC address to deposit from",
-                    },
-                  },
-                  required: ["amount", "fromAddress"],
-                },
-              },
-            },
-          },
-          responses: {
-            "200": {
-              description: "Successful response",
-              content: {
-                "application/json": {
-                  schema: {
-                    type: "object",
-                    properties: {
-                      txHash: {
-                        type: "string",
-                        description: "Transaction hash of the deposit",
-                      },
-                      amount: {
-                        type: "string",
-                        description: "Amount of BTC deposited",
-                      },
-                      newBalance: {
-                        type: "string",
-                        description: "Updated BTC balance after deposit",
                       },
                     },
                   },
