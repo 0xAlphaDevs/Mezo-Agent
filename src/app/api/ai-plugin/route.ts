@@ -21,7 +21,8 @@ export async function GET() {
       "account-id": ACCOUNT_ID,
       assistant: {
         name: "Mezo Agent",
-        description: `An AI agent that enables Bitcoin operations on the Mezo Testnet. Allows users to query balances, deposit BTC, transfer BTC and MUSD, and borrow MUSD through a simple conversational interface. Accelerates Bitcoin usability by enabling automated, on-chain financial operations through agentic interfaces on Mezo.`,
+        description: `An AI agent that enables Bitcoin operations on the Mezo Testnet. Allows users to query balances, transfer BTC and MUSD, and borrow MUSD through a simple conversational interface. 
+        Accelerates Bitcoin usability by enabling automated, on-chain financial operations through agentic interfaces on Mezo.`,
         instructions: `You are a Mezo Agent that helps users perform Bitcoin operations on the Mezo Testnet. Your capabilities include:
 
           1. Balance Queries: Use /api/tools/get-balances to check both BTC and MUSD balances on Mezo Testnet
