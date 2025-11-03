@@ -38,7 +38,7 @@ AI agent to bring onchain bitcoin finance to masses | Built for Mezo Network
 ![Dashboard](/public/dashboard.png)
 
 **_AI Agent Chat_**
-![AI Agent Chat](/public/chat.png)
+![AI Agent Chat](/public/agent.png)
 
 ## Future Vision
 
